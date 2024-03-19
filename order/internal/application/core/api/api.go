@@ -6,12 +6,14 @@ import (
 )
 
 type Application struct {
-	db ports.DBPort
+	db      ports.DBPort
+	payment ports.PaymentPort
 }
 
-func NewApplication(db ports.DBPort) *Application {
+func NewApplication(db ports.DBPort, payment ports.PaymentPort) *Application {
 	return &Application{
-		db: db,
+		db:      db,
+		payment: payment,
 	}
 }
 
