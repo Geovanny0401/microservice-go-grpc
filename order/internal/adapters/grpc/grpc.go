@@ -5,9 +5,11 @@ import (
 
 	"github.com/Geovanny0401/microservice-go-grpc/order/internal/application/core/domain"
 	"github.com/geovanny0401/microservices-proto/golang/order"
+	log "github.com/sirupsen/logrus"
 )
 
 func (a Adapter) Create(ctx context.Context, request *order.CreateOrderRequest) (*order.CreateOrderResponse, error) {
+	log.WithContext(ctx).Info("Creating order...")
 	var orderItems []domain.OrderItem
 	for _, orderItem := range request.OrderItems {
 		orderItems = append(orderItems, domain.OrderItem{
@@ -22,4 +24,8 @@ func (a Adapter) Create(ctx context.Context, request *order.CreateOrderRequest) 
 		return nil, err
 	}
 	return &order.CreateOrderResponse{OrderId: result.ID}, nil
+}
+
+func (a Adapter) Get(ctx context.Context, request *order.CreateOrderRequest) (*order.GetOrderResponse, error) {
+	result, err := a.api.GetOrder(ctx, request.OrderId)
 }

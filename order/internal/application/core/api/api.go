@@ -42,3 +42,7 @@ func (a Application) PlaceOrder(ctx context.Context, order domain.Order) (domain
 	}
 	return order, nil
 }
+
+func (a Application) GetOrder(ctx context.Context, id int64) (domain.Order, error) {
+	return a.db.Get(ctx, id)
+}
