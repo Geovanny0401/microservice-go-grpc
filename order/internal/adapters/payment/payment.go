@@ -17,7 +17,8 @@ type Adapter struct {
 func NewAdapter(paymentServiceUrl string) (*Adapter, error) {
 	var opts []grpc.DialOption
 	opts = append(opts, grpc.WithTransportCredentials(insecure.NewCredentials()),
-		grpc.WithUnaryInterceptor(otelgrpc.UnaryClientInterceptor()))
+		grpc.WithUnaryInterceptor(otelgrpc.UnaryClientInterceptor()),
+	)
 	conn, err := grpc.Dial(paymentServiceUrl, opts...)
 	if err != nil {
 		return nil, err
